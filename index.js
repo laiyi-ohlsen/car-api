@@ -31,26 +31,40 @@ let cars = {
    }
 }
 
+// app.get('/', (req, res) => {
+//     let matchingCars = {}; 
+//     Object.keys(cars).forEach((key,value) => {
+//         if(req.query.color == cars[key].color){
+//             if(Object.keys(matchingCars).length === 0){
+//                 matchingCars[0] = cars[key]
+//             }else {
+//                 matchingCars[Object.keys(matchingCars).length] = cars[key]
+//             }
+//         }
+//     })
+//     res.send(matchingCars)
+// })
+
 app.get('/', (req, res) => {
-    let matchingCars = {}; 
+    let matchingCars = []; 
     Object.keys(cars).forEach((key,value) => {
         if(req.query.color == cars[key].color){
-            if(Object.keys(matchingCars).length === 0){
-                matchingCars[0] = cars[key]
+            if(matchingCars.length === 0){
+                matchingCars[0] = key;
             }else {
-                matchingCars[Object.keys(matchingCars).length] = cars[key]
+                matchingCars[matchingCars.length] = key;
             }
         }
     })
     res.send(matchingCars)
 })
 
+
 app.get('/car/:car/', (req,res) => {
     let car;
     Object.keys(cars).forEach((key,value) => {
         if(req.params.car.substring(1) == key){
             car = cars[key]
-            console.log(car)
             }
     })
     res.send(car)
